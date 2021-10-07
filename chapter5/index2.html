@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>购物车示例</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <template v-if="list.length">
+            <table>
+                <thead> 
+                    <tr>
+                        <th>ID</th>
+                        <th>商品名称</th>
+                        <th>商品单价</th>
+                        <th>商品种类</th>
+                        <th>购买数量</th>
+                        <th>是否选中</th>
+                        <th>操作</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                        <template v-for="(item, index) in list">
+                            <tr v-for="(item2, index2) in item.product">
+                                <td>{{item2.id}}</td>
+                                <td>{{item2.name}}</td>
+                                <td>{{item.class}}</td>
+                                <td>{{item2.price}}</td>
+                                <td>
+                                    <button @click="handleReduce(index, index2)" :disabled="item2.count === 1">-</button>
+                                    {{item2.count}}
+                                    <button @click="handleAdd(index, index2)">+</button>
+                                </td>
+
+                                <td>
+                                    <button v-if="item2.ischecked" @click="handleRemoveChecked(index, index2)">已选中</button>
+                                    <button v-else @click="handleAddChecked(index, index2)">未选中</button>
+                                    
+                                </td>
+                                <td>
+                                    <button @click="handleRemove(index,index2)">移除</button>
+                                </td>
+                        
+                            </tr>
+                      
+                        </template>
+                </tbody>
+            </table>
+       
+                <button @click="handleAddAllChecked">选中所有</button>
+                <button @click="handleRemoveAllChecked">取消所有选中</button>
+      
+            <div>总价：¥{{totalPrice}}</div>
+        </template>
+        <div v-else>购物车为空</div>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="index2.js"></script>
+</body>
+</html>
